@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalMind Business Intelligence Agent</title>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.1);
+            color: white;
+            padding: 1rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #667eea;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        .feature-card p {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 1rem; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+
+            .card {
+                padding: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-map-marked-alt"></i> LocalMind
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="/competitor-analysis"><i class="fas fa-users-cog"></i> Competitors</a></li>
+                    <li><a href="/hours-optimizer"><i class="fas fa-business-time"></i> Hours</a></li>
+                    <li><a href="/market-scanner"><i class="fas fa-map-marked"></i> Market</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <div class="card text-center">
+            <h1 class="card-title">🧠 LocalMind Business Intelligence Agent</h1>
+            <p style="font-size: 1.3rem; color: #6c757d; margin-bottom: 2rem; font-weight: 300;">
+                Unlock contextual place information to make smarter business decisions
+            </p>
+            <p style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.1rem;">
+                Transform your small business with enterprise-level location intelligence. 
+                Get competitor insights, optimize your operating hours, and discover market opportunities - 
+                all powered by real-time data and AI analysis.
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <!-- Competitor Analysis Feature -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3>Competitor Analysis</h3>
+                <p>Discover and analyze your competitors with real-time data. Get insights on market density, competitor locations, and strategic positioning opportunities.</p>
+                <a href="/competitor-analysis" class="btn btn-primary mt-2">
+                    <i class="fas fa-microscope"></i> Analyze Market
+                </a>
+            </div>
+
+            <!-- Hours Optimization Feature -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-business-time"></i>
+                </div>
+                <h3>Hours Optimization</h3>
+                <p>Optimize your business hours based on local foot traffic patterns and competitor analysis. Maximize revenue with data-driven scheduling.</p>
+                <a href="/hours-optimizer" class="btn btn-primary mt-2">
+                    <i class="fas fa-clock-rotate-left"></i> Optimize Hours
+                </a>
+            </div>
+
+            <!-- Market Scanner Feature -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked"></i>
+                </div>
+                <h3>Market Scanner</h3>
+                <p>Identify untapped business opportunities and market gaps in your area. Find the perfect niche with comprehensive market analysis.</p>
+                <a href="/market-scanner" class="btn btn-primary mt-2">
+                    <i class="fas fa-bullseye"></i> Scan Market
+                </a>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="card">
+            <h2 class="card-title">📈 Why Choose LocalMind?</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div style="padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                    <h4 style="color: #667eea; margin-bottom: 1rem;"><i class="fas fa-piggy-bank"></i> Cost-Effective Intelligence</h4>
+                    <p>Get enterprise-level market research for a fraction of the cost. Save $20,000+ annually compared to traditional market research.</p>
+                </div>
+                <div style="padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                    <h4 style="color: #667eea; margin-bottom: 1rem;"><i class="fas fa-rocket"></i> Real-Time Insights</h4>
+                    <p>Access up-to-date competitor data and market conditions. Make informed decisions with current information, not outdated reports.</p>
+                </div>
+                <div style="padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                    <h4 style="color: #667eea; margin-bottom: 1rem;"><i class="fas fa-location-arrow"></i> Location-Specific Analysis</h4>
+                    <p>Hyper-local insights tailored to your exact business location. Understand your immediate market environment and opportunities.</p>
+                </div>
+                <div style="padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                    <h4 style="color: #667eea; margin-bottom: 1rem;"><i class="fas fa-robot"></i> AI-Powered Recommendations</h4>
+                    <p>Intelligent suggestions for hours, pricing, and expansion based on advanced data analysis and machine learning.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="card">
+            <h2 class="card-title">🎯 Expected Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">30-50%</div>
+                    <div class="stat-label">Better Location Success</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">25%</div>
+                    <div class="stat-label">Revenue Increase</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">Marketing Efficiency</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60%</div>
+                    <div class="stat-label">Faster Decisions</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="card text-center">
+            <h2 style="color: #667eea; margin-bottom: 1.5rem; font-size: 2rem;">Ready to Transform Your Business?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2.5rem; color: #495057;">Start with any of our three core features and see immediate insights for your business location.</p>
+            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/competitor-analysis" class="btn btn-primary">
+                    <i class="fas fa-microscope"></i> Start Analysis
+                </a>
+                <a href="/hours-optimizer" class="btn btn-secondary">
+                    <i class="fas fa-clock-rotate-left"></i> Optimize Hours
+                </a>
+                <a href="/market-scanner" class="btn btn-primary">
+                    <i class="fas fa-bullseye"></i> Scan Market
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 LocalMind Business Intelligence Agent. Empowering SMBs with data-driven decisions.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('LocalMind Business Intelligence Agent loaded');
+            
+            // Add smooth scrolling for better UX
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
